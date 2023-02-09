@@ -1,0 +1,40 @@
+@mixin media($size) {
+  @media (max-width: #{$size}px) {
+    @content;
+  }
+}
+@mixin container() {
+  max-width: 1200px;
+  min-height: 20px;
+  padding: 0 15px;
+  margin: 0 auto;
+  width: 100%;
+  // border: 1px solid red;
+  @include media(1400){max-width: 1140px;}
+  @include media(1200){max-width: 960px;}
+  @include media(992){max-width: 720px;}
+  @include media(768){max-width: 540px;}
+  @include media(576){max-width: 100%;}
+}
+@mixin fonts($fz:null,$lh:null,$c:null,$fw:null) {
+  font-size: $fz;
+  line-height: $lh;
+  color: $c;
+  font-weight: $fw;
+}
+@mixin fontFace($ff,$fUrl,$fName,$fExt,$format,$weight) {
+  @font-face {
+    font-family: $ff;
+    src: url('../fonts/#{$fUrl}#{$fName}.#{$fExt}') format($format);
+    font-weight: $weight;
+  }
+}
+$jost: ('Regular', 400), ('SemiBold', 600), ('Bold', 700);
+$icons: ('light-300', 300),('regular-400', 400),('solid-900', 900);
+
+@each $name, $weight in $jost{
+  @include fontFace('jost', 'jost/Jost-', $name, 'ttf', 'truetype', $weight);
+}
+@each $name, $weight in $icons{
+  @include fontFace('icons', 'icons/fa-', $name, 'ttf', 'truetype', $weight);
+}
